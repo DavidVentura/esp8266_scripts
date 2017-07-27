@@ -3,7 +3,7 @@
 
 http server that takes a dictionary with callbacks to functions based on paths and resolves parameters
 
-```
+```python
 d = {
     'test': test
 }
@@ -26,8 +26,5 @@ color temperature to rgb for neopixel
 
 ```python
 import ktorgb
-np = ktorgb.setup()
 temp = ktorgb.ktorgb(700)
-intensity = 0.1
-ktorgb.set_all(np, temp, intensity)
 ```
