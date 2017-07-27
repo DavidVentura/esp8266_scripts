@@ -73,9 +73,11 @@ def serve(cbmap):
                 data = ""
             cl.send("HTTP/1.1 200 OK\r\n\r\n")
             cl.write(data)
+        except OSError as ose:
+            print(ose)
+            continue
         except Exception as e:
             cl.send("HTTP/1.1 500 Internal Server Error\r\n\r\n")
             cl.send(str(e))
-        finally:
-            cl.close()
-            debug('conn closed')
+
+        cl.close()
