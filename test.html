@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- avoid favicon request -->
+        <style>
+            html, body { width: 100%; height: 100%; overflow-y: hidden; margin: 0; padding: 0; 
+                         background-color: #333; color: white; }
+            input {width: 100%; margin: 20px;}
+            label {min-width: 100px; display: block; text-align: center; font-family: sans-serif; }
+            #main {
+                width: 80%;
+                margin: 0px auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <div>
+                <label>Temperature:</label>
+                <input type="range" id="temp" min="800" max="5000" onchange="temp=this.value;update(true)" oninput="temp=this.value;update()">
+            </div>
+            <div>
+                <label>Intensity:</label>
+                <input type="range" id="intensity" min="0.1" max="1" step="0.02" onchange="intensity=this.value;update(true)" oninput="intensity=this.value;update()">
+            </div>
+            <div>
+                <label>LEDs:</label>
+                <input type="range" id="count" min="1" max="8" onchange="count=this.value;update(true)" oninput="count=this.value;update()">
+            </div>
+        </div>
+
+    <script>
+        var temp = 1200;
+        var intensity = 0.5;
+        var count = 8;
+        var delay = 200;
+        var lastUpdate = new Date();
+        function update(force=false) {
+            var now = new Date();
+            if (((now - lastUpdate) > delay) || force)
+                lastUpdate = now;
+            else
+                return;
+
+            console.log(temp, intensity, count);
+            fetch(`http://192.168.1.112/ktorgb?k=${temp}&i=${intensity}&count=${count}`);
+        }
+        document.getElementById("temp").value = temp;
+        document.getElementById("intensity").value = intensity;
+        document.getElementById("count").value = count;
+    </script>
+
+    </body>
+</html>
