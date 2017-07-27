@@ -4,15 +4,22 @@ from ktorgb import ktorgb
 import time
 
 
-def kset(k, i):
-    set_all(neo, ktorgb(int(k)), float(i))
+def kset(k, i, count=8):
+    set_all(neo, ktorgb(int(k)), float(i), int(count))
     return ""
 
 
-def set_all(np, ratio, intensity):
+def set_all(np, ratio, intensity, count):
+    count = max(min(count, np.n), 1)
     color = tuple(int(intensity * k) for k in ratio)
-    for i in range(np.n):
+
+    for i in range(count):
         np[i] = color
+        np.write()
+        time.sleep_ms(40)
+
+    for i in range(count, np.n):
+        np[i] = (0, 0, 0)
         np.write()
         time.sleep_ms(40)
 
