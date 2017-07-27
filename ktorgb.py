@@ -35,9 +35,5 @@ def set_all(np, ratio, intensity):
 
 
 def setup():
-    global np
     import machine, neopixel
-    np = neopixel.NeoPixel(machine.Pin(2), 8)
-
-
-np = None
+    return neopixel.NeoPixel(machine.Pin(2), 8)
