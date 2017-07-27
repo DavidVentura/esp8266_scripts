@@ -1,6 +1,11 @@
 import usocket as socket
 
 
+def debug(*msg):
+    if False:
+        print(*msg)
+
+
 def parse_req(req):
     # req = [ "GET /toggle HTTP/1.1", ....]
     req = req[0]
@@ -37,33 +42,35 @@ def serve(cbmap):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('', 80))
-    print("about to listen")
+    debug("about to listen")
     s.listen(1)
 
     while True:
-        print('waiting...')
+        debug('waiting...')
         cl, addr = s.accept()
-        print('client connected from', addr)
+        debug('client connected from', addr)
         request = cl.recv(1024)
         r = str(request, 'utf-8').split('\r\n')
 
-        print("*" * 20, "Request", "*" * 20)
-        print(r)
-        print("*" * 20, "Request", "*" * 20)
+        debug("*" * 20, "Request", "*" * 20)
+        debug(r)
+        debug("*" * 20, "Request", "*" * 20)
 
         path, params = parse_req(r)
 
-        print("PATH: ", path)
-        print("PARAMS: ", params)
+        debug("PATH: ", path)
+        debug("PARAMS: ", params)
 
         if path not in cbmap:
-            print("notincbmap")
+            debug("notincbmap")
             cl.send("HTTP/1.1 400 Invalid Request\r\n\r\n")
             cl.close()
             continue
 
         try:
             data = cbmap[path](**params)
+            if data is None:
+                data = ""
             cl.send("HTTP/1.1 200 OK\r\n\r\n")
             html = [data[i:i+n] for i in range(0, len(data), n)]
             for h in html:
@@ -73,4 +80,4 @@ def serve(cbmap):
             cl.send(str(e))
         finally:
             cl.close()
-            print('conn closed')
+            debug('conn closed')
