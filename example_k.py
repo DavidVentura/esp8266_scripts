@@ -12,18 +12,16 @@ def kset(k, i, count=8):
 
 
 def set_all(np, ratio, intensity, count):
-    count = max(min(count, np.n), 1)
+    count = max(min(count, np.n), 0)
     color = tuple(int(intensity * k) for k in ratio)
 
     for i in range(count):
         np[i] = color
-        np.write()
-        # time.sleep_ms(40)
 
     for i in range(count, np.n):
         np[i] = (0, 0, 0)
-        np.write()
-        # time.sleep_ms(40)
+
+    np.write()
 
 
 def setup():
