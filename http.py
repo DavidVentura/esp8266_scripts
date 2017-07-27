@@ -72,9 +72,7 @@ def serve(cbmap):
             if data is None:
                 data = ""
             cl.send("HTTP/1.1 200 OK\r\n\r\n")
-            html = [data[i:i+n] for i in range(0, len(data), n)]
-            for h in html:
-                cl.send(h)
+            cl.write(data)
         except Exception as e:
             cl.send("HTTP/1.1 500 Internal Server Error\r\n\r\n")
             cl.send(str(e))
