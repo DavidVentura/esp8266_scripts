@@ -15,6 +15,11 @@
                 top: 50%;
                 transform: translateY(-50%);
             }
+            button {
+                margin-top: 20px;
+                width: 33%;
+                padding: 20px;
+            }
         </style>
     </head>
     <body>
@@ -29,7 +34,12 @@
             </div>
             <div>
                 <label>LEDs:</label>
-                <input type="range" id="count" min="1" max="8" onchange="count=this.value;update(true)" oninput="count=this.value;update()">
+                <input type="range" id="count" min="0" max="8" onchange="count=this.value;update(true)" oninput="count=this.value;update()">
+            </div>
+            <div>
+                <button onclick="quick_mode(1)">Reading</button>
+                <button onclick="quick_mode(2)">Off</button>
+                <button onclick="quick_mode(3)">Full</button>
             </div>
         </div>
 
@@ -49,9 +59,35 @@
             console.log(temp, intensity, count);
             fetch(`http://192.168.1.112/ktorgb?k=${temp}&i=${intensity}&count=${count}`);
         }
-        document.getElementById("temp").value = temp;
-        document.getElementById("intensity").value = intensity;
-        document.getElementById("count").value = count;
+
+        function update_sliders(){
+            document.getElementById("temp").value = temp;
+            document.getElementById("intensity").value = intensity;
+            document.getElementById("count").value = count;
+        }
+
+        update_sliders();
+
+        function quick_mode(mode) {
+            switch(mode){
+                case 1:
+                    temp = 800;
+                    intensity = 0.3;
+                    count = 3;
+                    break;
+                case 2:
+                    intensity = 0;
+                    count = 0;
+                    break;
+                case 3:
+                    intensity = 1;
+                    count = 8;
+                    temp = 5000;
+                    break;
+            }
+            update(true);
+            update_sliders();
+        }
     </script>
 
     </body>
