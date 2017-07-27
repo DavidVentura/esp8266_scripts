@@ -23,17 +23,3 @@ def ktorgb(k):
     g = max(0, min(g, 255))
     b = max(0, min(b, 255))
     return (r, g, b)
-
-
-def set_all(np, ratio, intensity):
-    import time
-    color = tuple(int(intensity * k) for k in ratio)
-    for i in range(np.n):
-        np[i] = color
-        np.write()
-        time.sleep_ms(40)
-
-
-def setup():
-    import machine, neopixel
-    return neopixel.NeoPixel(machine.Pin(2), 8)
