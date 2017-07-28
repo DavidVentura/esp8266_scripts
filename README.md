@@ -19,7 +19,6 @@ PARAMS:  {'a': '3'}
 Calling test(a='3')
 ```
 
-
 # KtoRGB
 
 color temperature to rgb for neopixel
@@ -28,3 +27,7 @@ color temperature to rgb for neopixel
 import ktorgb
 temp = ktorgb.ktorgb(700)
 ```
+
+# Lamp
+
+simple gpio toggle with http + get
