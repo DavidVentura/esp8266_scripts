@@ -43,7 +43,7 @@ def serve(cbmap):
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('', 80))
     debug("about to listen")
-    s.listen(1)
+    s.listen(5)
 
     while True:
         debug('waiting...')
