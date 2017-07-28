@@ -13,7 +13,7 @@ def kset(k, i, count=8):
 
 def set_all(np, ratio, intensity, count):
     count = max(min(count, np.n), 0)
-    color = tuple(int(intensity * k) for k in ratio)
+    color = tuple(min(240, int(intensity * k)) for k in ratio)
 
     for i in range(count):
         np[i] = color
