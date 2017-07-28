@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- avoid favicon request -->
+        <style>
+            html, body {
+                background-color: #333;
+                color: white;
+                height: 100%; width: 100%;
+                margin: 0; padding: 0;
+                overflow:hidden
+            }
+            a {
+                text-align:center;
+                border: 1px solid #666;
+                color: white;
+                padding: 10px;
+                margin-top: 10px;
+                text-decoration: none;
+                font-family: sans-serif;
+              }
+            #linklist {
+                width: 80%;
+                margin: 0px auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="linklist">
+            <a style="display:block" href="/on">ON</a>
+            <a style="display:block" href="/off">OFF</a>
+            <a style="display:block" href="/toggle">TOGGLE</a>
+        </div>
+    </body>
+</html>
