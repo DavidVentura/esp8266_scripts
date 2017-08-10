@@ -35,3 +35,17 @@ def do_connect():
 
     else:
         print('network config:', wlan.ifconfig())
+
+
+def get_ssids_and_qual():
+    w = network.WLAN()
+    ssids = w.scan()
+    ret = []
+    for item in ssids:
+        ret.append((item[0].decode(), rssi_to_perc(item[3])))
+
+    return sorted(ret, key=lambda tup: tup[1], reverse=True)
+
+
+def rssi_to_perc(rssi):
+    return min(max(2 * (rssi + 100), 0), 100)
